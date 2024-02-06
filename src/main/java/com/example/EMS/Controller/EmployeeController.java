@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/")
+@RequestMapping("/v1/employee")
 public class EmployeeController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class EmployeeController {
         return employeeService.add(employee);
     }
 
-    @GetMapping("/employee/{id}")
+    @GetMapping("/findEmployee/{id}")
     public ResponseEntity<?> getEmployeeById(@PathVariable(value = "id") Long employeeId) {
         return employeeService.getById(employeeId);
     }

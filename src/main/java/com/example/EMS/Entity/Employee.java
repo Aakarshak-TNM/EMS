@@ -11,7 +11,7 @@ import java.util.List;
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
     @Column(nullable = false)
@@ -30,7 +30,13 @@ public class Employee {
     long departmentId;
 
     @Column(nullable = false)
-    List<Long> projects;
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    List<Project> projects;
+
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    Project project;
+
 //    Wants the id of the projects that the employee of the particular department is handling
 
 
@@ -74,11 +80,11 @@ public class Employee {
         this.departmentId = departmentId;
     }
 
-    public List<Long> getProjects() {
+    public List<Project> getProjects() {
         return projects;
     }
 
-    public void setProjects(List<Long> projects) {
+    public void setProjects(List<Project> projects) {
         this.projects = projects;
     }
 }
