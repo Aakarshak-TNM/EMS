@@ -46,4 +46,15 @@ public class EmployeeController {
         return employeeService.departmentOfEmployee(employeeId);
     }
 
+    @GetMapping("/highest-salary")
+    public ResponseEntity<?> getHighestSalaryHolders() {
+        return employeeService.getHighestSalaryHolders();
+    }
+
+    @GetMapping("/second-highest-salary")
+    public ResponseEntity<?> getSecondHighestSalary() {
+        return employeeService.getSecondHighestSalary();
+    }
+
+
 }

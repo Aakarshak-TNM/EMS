@@ -1,9 +1,11 @@
 package com.example.EMS.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,15 +23,16 @@ public class Project {
 
 
     @JsonIgnore
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    List<Employee> team;
+    @ManyToMany(mappedBy = "projects")
+    private List<Employee> team = new ArrayList<>();
 
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @ManyToOne
     @JoinColumn(name = "team_lead_id")
     Employee teamLead;
 
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ProjectStatus status;
 
@@ -39,10 +42,6 @@ public class Project {
     @Column(nullable = false)
     private Date endDate;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
 
     public long getProjectId() {
         return projectId;
@@ -99,4 +98,5 @@ public class Project {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+
 }

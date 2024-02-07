@@ -39,4 +39,9 @@ public class DepartmentController {
     public ResponseEntity<?> deleteDepartment(@PathVariable(value = "departmentId") Long departmentId) {
         return departmentService.deleteDepartment(departmentId);
     }
+
+    @GetMapping("/total-salary")
+    public ResponseEntity<?> getTotalSalaryByDepartment() {
+        return departmentService.getTotalSalaryByDepartment();
+    }
 }

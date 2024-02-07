@@ -35,14 +35,13 @@ public class Employee {
     Department department;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    List<Project> projects = new ArrayList<>();
-
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "project_id")
-    Project project;
-
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "project_employee",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
+    private List<Project> projects=new ArrayList<>();
 //    Wants the id of the projects that the employee of the particular department is handling
 
 

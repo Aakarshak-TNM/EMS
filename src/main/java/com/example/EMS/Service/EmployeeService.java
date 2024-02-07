@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -105,4 +106,37 @@ public class EmployeeService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(employeeResponse);
         }
     }
+
+
+    public ResponseEntity<?> getHighestSalaryHolders() {
+        List<Employee> employees = employeeRepository.findAll();
+
+        Optional<Employee> highestSalaryEmployee = employees.stream()
+                .max(Comparator.comparingDouble(Employee::getSalary));
+
+        if (highestSalaryEmployee.isPresent()) {
+            Employee employeeWithHighestSalary = highestSalaryEmployee.get();
+            return ResponseEntity.status(HttpStatus.OK).body(employeeWithHighestSalary);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found");
+        }
+    }
+
+    public ResponseEntity<?> getSecondHighestSalary() {
+        List<Employee> employees = employeeRepository.findAll();
+
+        Optional<Employee> secondHighestSalaryEmployee = employees.stream()
+                .sorted(Comparator.comparingDouble(Employee::getSalary).reversed())
+                .skip(1)
+                .findFirst();
+
+        if (secondHighestSalaryEmployee.isPresent()) {
+            Employee employeeWithSecondHighestSalary = secondHighestSalaryEmployee.get();
+            return ResponseEntity.status(HttpStatus.OK).body(employeeWithSecondHighestSalary);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found");
+
+        }
+    }
+
 }
