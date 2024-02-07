@@ -1,8 +1,11 @@
 package com.example.EMS.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,25 +17,28 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
-    @Column(nullable = false)
+    @Column
     String name;
 
-    @Column(nullable = false)
+    @Column
     double salary;
 
-    @Column(nullable = false)
+    @Column
     String designation;
 
-    @Column(nullable = false)
+    @Column
     String address;
 
-    @Column(nullable = false)
-    long departmentId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    Department department;
 
-    @Column(nullable = false)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    List<Project> projects;
+    List<Project> projects = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "project_id")
     Project project;
@@ -72,12 +78,12 @@ public class Employee {
         this.address = address;
     }
 
-    public long getDepartmentId() {
-        return departmentId;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepartmentId(long departmentId) {
-        this.departmentId = departmentId;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public List<Project> getProjects() {

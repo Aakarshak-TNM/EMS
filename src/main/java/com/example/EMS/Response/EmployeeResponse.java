@@ -4,19 +4,21 @@ import com.example.EMS.Entity.Employee;
 import org.springframework.http.ResponseEntity;
 
 public class EmployeeResponse {
+
     private Employee data;
     private int status_code;
     private String error;
     private String message;
 
-    public EmployeeResponse(Employee data, int status_code, String error, String message) {
-        this.data = data;
+
+    public EmployeeResponse(int status_code, String error, String message) {
         this.status_code = status_code;
         this.error = error;
         this.message = message;
     }
 
-    public EmployeeResponse(int status_code, String error, String message) {
+    public EmployeeResponse(Employee data, int status_code, String error, String message) {
+        this.data = data;
         this.status_code = status_code;
         this.error = error;
         this.message = message;
@@ -53,4 +55,6 @@ public class EmployeeResponse {
     public void setMessage(String message) {
         this.message = message;
     }
+
+
 }

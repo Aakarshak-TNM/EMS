@@ -1,5 +1,6 @@
 package com.example.EMS.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,6 +20,7 @@ public class Project {
     private String projectName;
 
 
+    @JsonIgnore
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     List<Employee> team;
 
@@ -37,6 +39,7 @@ public class Project {
     @Column(nullable = false)
     private Date endDate;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;

@@ -35,8 +35,15 @@ public class EmployeeController {
         return employeeService.updateById(employeeId, employeeDetails);
     }
 
-    @DeleteMapping("/deleteEmployee/{Id}")
-    public ResponseEntity<?> deleteEmployee(@PathVariable(value = "Id") Long Id) {
+
+    @DeleteMapping("/deleteEmployee/{id}")
+    public ResponseEntity<?> deleteEmployee(@PathVariable(value = "id") Long Id) {
         return employeeService.deleteById(Id);
     }
+
+    @GetMapping("/{employeeId}/department")
+    public ResponseEntity<?> departmentDetails(@PathVariable(value = "employeeId") Long employeeId) {
+        return employeeService.departmentOfEmployee(employeeId);
+    }
+
 }

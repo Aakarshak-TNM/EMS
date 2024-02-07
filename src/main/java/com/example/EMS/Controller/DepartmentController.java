@@ -29,4 +29,14 @@ public class DepartmentController {
     public ResponseEntity<?> updateDepartmentById(@PathVariable(value = "id") Long departmentId, @RequestBody Department departmentDetails) {
         return departmentService.updateById(departmentId, departmentDetails);
     }
+
+    @GetMapping("/departmentOfEmployees/{departmentId}")
+    public ResponseEntity<?> departmentOfEmployees(@PathVariable(value = "departmentId") Long departmentId) {
+        return departmentService.getDepartmentWithEmployees(departmentId);
+    }
+
+    @DeleteMapping("/delete/{departmentId}")
+    public ResponseEntity<?> deleteDepartment(@PathVariable(value = "departmentId") Long departmentId) {
+        return departmentService.deleteDepartment(departmentId);
+    }
 }
