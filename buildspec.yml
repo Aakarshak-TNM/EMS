@@ -1,6 +1,11 @@
 version: 0.2
 
 phases:
+  #      For CodeDeploy part only
+  install:
+    runtime-versions:
+      java: corretto17
+  #      To this
   build:
     commands:
       - echo "Packaging JAR file..."
@@ -11,4 +16,6 @@ phases:
 artifacts:
   files:
     - target/EmployeeManagementSystem.jar
+    - scripts/*.sh
+    - appspec.yml
   discard-paths: yes
