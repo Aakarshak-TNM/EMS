@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   app:
+    restart: always
     build: .
     ports:
       - "8081:8080"
@@ -14,9 +15,10 @@ services:
     depends_on:
       - mysqldb
     networks:
-      - springboot-mysql-net
+      - ems_springboot-mysql-net
 
   mysqldb:
+    restart: always
     image: mysql/mysql-server:latest
     ports:
       - "3307:3306"
@@ -26,8 +28,8 @@ services:
       - MYSQL_USER=tnm
       - MYSQL_PASSWORD=password
     networks:
-      - springboot-mysql-net
+      - ems_springboot-mysql-net
 
 networks:
-  springboot-mysql-net:
+  ems_springboot-mysql-net:
     driver: bridge
